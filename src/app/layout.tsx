@@ -1,6 +1,7 @@
 import { pretendard } from "@/app/fonts";
 import type { Metadata } from "next";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "User Management Table",
@@ -13,8 +14,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className={pretendard.variable}>
-      <body className={`${pretendard.className} antialiased`}>{children}</body>
+    <html lang="ko">
+      <body className={cn(pretendard.className, "antialiased")}>
+        {children}
+      </body>
     </html>
   );
 }
