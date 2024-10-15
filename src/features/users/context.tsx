@@ -7,8 +7,8 @@ type UsersState = User[];
 
 type UsersActions = {
   addUser: (user: User) => void;
-  editUser: (userName: string, user: Partial<User>) => void;
-  deleteUser: (userName: string) => void;
+  editUser: (userId: number, user: Partial<User>) => void;
+  deleteUser: (userId: number) => void;
 };
 
 type UsersContextProps = React.PropsWithChildren<{
@@ -29,23 +29,23 @@ const [UsersActionsProvider, useUsersActionsContext] =
   });
 
 const UsersContext = ({ storage, children }: UsersContextProps) => {
-  const [state, setState] = useState<UsersState>([]);
+  const [memoryState, setMemoryState] = useState<UsersState>([]);
 
-  const actions = useMemo<UsersActions>(
+  const memoryStateActions = useMemo<UsersActions>(
     () => ({
       addUser: (user) => {
-        setState((prevState) => [...prevState, user]);
+        setMemoryState((prevState) => [...prevState, user]);
       },
-      editUser: (userName, toUpdateUser) => {
-        setState((prevState) =>
+      editUser: (userId, toUpdateUser) => {
+        setMemoryState((prevState) =>
           prevState.map((user) =>
-            user.name === userName ? { ...user, ...toUpdateUser } : user,
+            user.id === userId ? { ...user, ...toUpdateUser } : user,
           ),
         );
       },
-      deleteUser: (userName) => {
-        setState((prevState) =>
-          prevState.filter((user) => user.name !== userName),
+      deleteUser: (userId) => {
+        setMemoryState((prevState) =>
+          prevState.filter((user) => user.id !== userId),
         );
       },
     }),
@@ -53,8 +53,8 @@ const UsersContext = ({ storage, children }: UsersContextProps) => {
   );
 
   return (
-    <UsersActionsProvider value={actions}>
-      <UsersValueProvider value={state}>{children}</UsersValueProvider>
+    <UsersActionsProvider value={memoryStateActions}>
+      <UsersValueProvider value={memoryState}>{children}</UsersValueProvider>
     </UsersActionsProvider>
   );
 };
