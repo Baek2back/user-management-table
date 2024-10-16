@@ -7,35 +7,43 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/features/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     fontSize: {
       ...defaultTheme.fontSize,
-      ["lg-normal"]: [
-        "4rem",
+      ["heading-5"]: [
+        "16px",
         {
-          lineHeight: "6rem",
+          lineHeight: "24px",
+          fontWeight: "600",
+        },
+      ],
+      ["lg-normal"]: [
+        "16px",
+        {
+          lineHeight: "24px",
           fontWeight: "400",
         },
       ],
       ["lg-strong"]: [
-        "4rem",
+        "16px",
         {
-          lineHeight: "6rem",
+          lineHeight: "24px",
           fontWeight: "600",
         },
       ],
       ["base-normal"]: [
-        "3.5rem",
+        "14px",
         {
-          lineHeight: "5.4rem",
+          lineHeight: "22px",
           fontWeight: "400",
         },
       ],
       ["base-strong"]: [
-        "3.5rem",
+        "14px",
         {
-          lineHeight: "5.4rem",
+          lineHeight: "22px",
           fontWeight: "600",
         },
       ],
