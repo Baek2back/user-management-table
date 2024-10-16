@@ -27,10 +27,7 @@ export const StringColumnFilter = ({ column }: StringColumnFilterProps) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button
-          className="flex h-full w-full justify-between border border-colorBgTextHover border-none bg-colorFillAlter p-[8px] text-base-strong text-colorText"
-          variant="filter"
-        >
+        <Button variant="filter" size="filter">
           {column.columnDef.header as string}
           <ListFilter size={12} />
         </Button>

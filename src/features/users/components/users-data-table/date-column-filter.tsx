@@ -28,10 +28,7 @@ export const DateColumnFilter = ({ column }: DateColumnFilterProps) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button
-          className="flex w-full justify-between border border-colorSplit border-none bg-colorFillAlter p-[8px] text-base-strong text-colorText"
-          variant="filter"
-        >
+        <Button variant="filter" size="filter">
           {column.columnDef.header as string}
           <ListFilter size={12} />
         </Button>
