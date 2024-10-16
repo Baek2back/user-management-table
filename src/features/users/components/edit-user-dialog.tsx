@@ -1,6 +1,4 @@
 "use client";
-
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -10,7 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { EditUserForm } from "@/features/users/components/edit-user-form";
 import { useUsersValueContext } from "@/features/users/context";
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
 
 type EditUserDialogProps = {
   userId: number;
