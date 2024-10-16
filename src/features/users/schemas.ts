@@ -7,5 +7,7 @@ export const userSchema = z.object({
   memo: z.string().optional(),
   registerDate: z.coerce.date(),
   job: z.enum(["개발자", "PO", "디자이너"]).optional(),
-  hasAgreedToEmailReceive: z.boolean().optional(),
+  hasAgreedToEmailReceive: z.boolean(),
 });
+
+export const userSchemaKeys = userSchema.keyof().enum;
