@@ -6,6 +6,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import type { Column } from "@tanstack/react-table";
+import { ListFilter } from "lucide-react";
 import { useMemo } from "react";
 
 type BooleanColumnFilterProps = {
@@ -26,18 +27,25 @@ export const BooleanColumnFilter = ({ column }: BooleanColumnFilterProps) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button className="w-[150px]">
+        <Button
+          className="flex w-full justify-between border border-colorBgTextHover border-none bg-colorFillAlter p-[8px] text-base-strong text-colorText"
+          variant="filter"
+        >
           {column.columnDef.header as string}
+          <ListFilter size={12} />
         </Button>
       </PopoverTrigger>
       {sortedUniqueFilterValues.length === 0 ? null : (
         <PopoverContent align="start">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 px-[12px]">
             {sortedUniqueFilterValues.map((item, index) => {
               const id = item ? "선택됨" : "선택 안함";
 
               return (
-                <div key={id}>
+                <div
+                  key={id}
+                  className="flex items-center gap-[8px] px-[4px] py-[5px]"
+                >
                   <Checkbox
                     id={id}
                     defaultChecked={columnFilterValue?.[index] === item}
@@ -56,7 +64,12 @@ export const BooleanColumnFilter = ({ column }: BooleanColumnFilterProps) => {
                       }
                     }}
                   />
-                  <label htmlFor={id}>{id}</label>
+                  <label
+                    htmlFor={id}
+                    className="text-base-normal text-colorText"
+                  >
+                    {id}
+                  </label>
                 </div>
               );
             })}

@@ -6,6 +6,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import type { Column } from "@tanstack/react-table";
+import { ListFilter } from "lucide-react";
 import { useMemo } from "react";
 
 type StringColumnFilterProps = {
@@ -26,8 +27,12 @@ export const StringColumnFilter = ({ column }: StringColumnFilterProps) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button className="w-[150px]">
+        <Button
+          className="flex h-full w-full justify-between border border-colorBgTextHover border-none bg-colorFillAlter p-[8px] text-base-strong text-colorText"
+          variant="filter"
+        >
           {column.columnDef.header as string}
+          <ListFilter size={12} />
         </Button>
       </PopoverTrigger>
       {sortedUniqueFilterValues.length === 0 ? null : (
@@ -37,7 +42,10 @@ export const StringColumnFilter = ({ column }: StringColumnFilterProps) => {
               const id = item;
 
               return (
-                <div key={id}>
+                <div
+                  key={id}
+                  className="flex items-center gap-[8px] px-[4px] py-[5px]"
+                >
                   <Checkbox
                     id={id}
                     defaultChecked={columnFilterValue?.[index] === item}
@@ -56,7 +64,12 @@ export const StringColumnFilter = ({ column }: StringColumnFilterProps) => {
                       }
                     }}
                   />
-                  <label htmlFor={id}>{id}</label>
+                  <label
+                    htmlFor={id}
+                    className="line-clamp-1 text-base-normal text-colorText"
+                  >
+                    {id}
+                  </label>
                 </div>
               );
             })}

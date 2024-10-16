@@ -101,7 +101,7 @@ export const CreateUserForm = ({ onOk, onCancel }: CreateUserFormProps) => {
           />
           <FormField
             control={form.control}
-            name={userSchemaKeys.address}
+            name={userSchemaKeys.memo}
             render={({ field }) => {
               return (
                 <FormItem>
@@ -162,7 +162,7 @@ export const CreateUserForm = ({ onOk, onCancel }: CreateUserFormProps) => {
             name={userSchemaKeys.hasAgreedToEmailReceive}
             render={({ field }) => {
               return (
-                <FormItem className="flex flex-col gap-y-2">
+                <FormItem>
                   <FormLabel>이메일 수신 동의</FormLabel>
                   <FormControl>
                     <Checkbox
@@ -176,7 +176,7 @@ export const CreateUserForm = ({ onOk, onCancel }: CreateUserFormProps) => {
             }}
           />
         </div>
-        <div className="flex h-[56px] items-center justify-end gap-[8px] border-[rgba(0,0,0,0.02)] bg-[rgba(0,0,0,0.02)] px-[16px] py-[12px]">
+        <div className="flex h-[56px] items-center justify-end gap-[8px] border-colorFillAlter bg-colorFillAlter px-[16px] py-[12px]">
           <Button type="button" onClick={onCancel} variant="outline">
             취소
           </Button>

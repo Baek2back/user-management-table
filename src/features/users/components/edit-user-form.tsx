@@ -164,7 +164,7 @@ export const EditUserForm = ({
             }}
           />
         </div>
-        <div className="flex h-[56px] items-center justify-end gap-[8px] border-[rgba(0,0,0,0.02)] bg-[rgba(0,0,0,0.02)] px-[16px] py-[12px]">
+        <div className="flex h-[56px] items-center justify-end gap-[8px] border-colorFillAlter bg-colorFillAlter px-[16px] py-[12px]">
           <Button type="button" onClick={onCancel}>
             취소
           </Button>

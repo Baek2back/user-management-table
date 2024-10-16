@@ -32,6 +32,7 @@ export const ActionsDropdownMenu = ({ userId }: ActionsDropdownMenuProps) => {
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
+          className="text-colorError"
           onClick={() => {
             deleteUser(userId);
           }}

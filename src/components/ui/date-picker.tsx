@@ -11,7 +11,8 @@ import { CalendarIcon } from "lucide-react";
 
 type DatePickerProps = {
   value?: Date;
-  onChange: (date: Date) => void;
+  onChange: (date?: Date) => void;
+  onBlur?: () => void;
   className?: string;
   placeholder?: string;
 };
@@ -19,6 +20,7 @@ type DatePickerProps = {
 export const DatePicker = ({
   value,
   onChange,
+  onBlur,
   className,
   placeholder,
 }: DatePickerProps) => {
@@ -27,23 +29,24 @@ export const DatePicker = ({
       <PopoverTrigger asChild>
         <Button
           variant="outline"
-          size="lg"
           className={cn(
-            "w-full justify-start px-3 text-left font-normal",
-            !value && "text-muted-foreground",
+            "flex h-[32px] w-[160px] items-center justify-between rounded-[8px] border-colorBorder bg-white px-[12px] py-[5px] text-base-normal hover:border-colorPrimary",
+            !value && "text-colorTextPlaceholder",
             className,
           )}
         >
-          {value ? format(value, "PPP") : <span>{placeholder}</span>}
-          <CalendarIcon />
+          {value ? format(value, "yyyy-MM-dd") : <span>{placeholder}</span>}
+          <CalendarIcon size={16} />
         </Button>
       </PopoverTrigger>
-      <PopoverContent>
+      <PopoverContent align="start">
         <Calendar
           mode="single"
           selected={value}
-          onSelect={(date) => onChange(date as Date)}
-          initialFocus
+          onSelect={(date) => {
+            onChange(date);
+          }}
+          onDayBlur={onBlur}
         />
       </PopoverContent>
     </Popover>
