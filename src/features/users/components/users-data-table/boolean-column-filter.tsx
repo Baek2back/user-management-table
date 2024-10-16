@@ -15,7 +15,7 @@ type BooleanColumnFilterProps = {
 export const BooleanColumnFilter = ({ column }: BooleanColumnFilterProps) => {
   const columnFilterValue = column.getFilterValue() as boolean[];
 
-  const uniqueFilterValues: boolean[] = useMemo(
+  const sortedUniqueFilterValues: boolean[] = useMemo(
     () =>
       Array.from(column.getFacetedUniqueValues().keys())
         .filter((value) => ![null, undefined].includes(value))
@@ -30,28 +30,33 @@ export const BooleanColumnFilter = ({ column }: BooleanColumnFilterProps) => {
           {column.columnDef.header as string}
         </Button>
       </PopoverTrigger>
-      {uniqueFilterValues.length === 0 ? null : (
+      {sortedUniqueFilterValues.length === 0 ? null : (
         <PopoverContent align="start">
           <div className="flex flex-col gap-2">
-            {uniqueFilterValues.map((item, index) => {
+            {sortedUniqueFilterValues.map((item, index) => {
+              const id = item ? "선택됨" : "선택 안함";
+
               return (
-                <div key={String(item)}>
+                <div key={id}>
                   <Checkbox
+                    id={id}
                     defaultChecked={columnFilterValue?.[index] === item}
-                    onCheckedChange={(value) => {
-                      if (value) {
-                        column.setFilterValue((old?: boolean[]) => [
-                          ...(old ?? []),
+                    onCheckedChange={(checkedState) => {
+                      if (checkedState) {
+                        column.setFilterValue((filterValue?: boolean[]) => [
+                          ...(filterValue ?? []),
                           item,
                         ]);
                       } else {
-                        column.setFilterValue((old?: boolean[]) => {
-                          return (old ?? []).filter((value) => value !== item);
+                        column.setFilterValue((filterValue?: boolean[]) => {
+                          return (filterValue ?? []).filter(
+                            (value) => value !== item,
+                          );
                         });
                       }
                     }}
                   />
-                  {item ? "선택됨" : "선택 안함"}
+                  <label htmlFor={id}>{id}</label>
                 </div>
               );
             })}

@@ -15,7 +15,7 @@ type StringColumnFilterProps = {
 export const StringColumnFilter = ({ column }: StringColumnFilterProps) => {
   const columnFilterValue = column.getFilterValue() as string[];
 
-  const uniqueFilterValues: string[] = useMemo(
+  const sortedUniqueFilterValues: string[] = useMemo(
     () =>
       Array.from(column.getFacetedUniqueValues().keys())
         .filter((value) => ![null, undefined].includes(value))
@@ -30,28 +30,33 @@ export const StringColumnFilter = ({ column }: StringColumnFilterProps) => {
           {column.columnDef.header as string}
         </Button>
       </PopoverTrigger>
-      {uniqueFilterValues.length === 0 ? null : (
+      {sortedUniqueFilterValues.length === 0 ? null : (
         <PopoverContent align="start">
           <div className="flex flex-col gap-2">
-            {uniqueFilterValues.map((item, index) => {
+            {sortedUniqueFilterValues.map((item, index) => {
+              const id = item;
+
               return (
-                <div key={item}>
+                <div key={id}>
                   <Checkbox
+                    id={id}
                     defaultChecked={columnFilterValue?.[index] === item}
-                    onCheckedChange={(value) => {
-                      if (value) {
-                        column.setFilterValue((old?: string[]) => [
-                          ...(old ?? []),
+                    onCheckedChange={(checkedState) => {
+                      if (checkedState) {
+                        column.setFilterValue((filterValue?: string[]) => [
+                          ...(filterValue ?? []),
                           item,
                         ]);
                       } else {
-                        column.setFilterValue((old?: string[]) => {
-                          return (old ?? []).filter((value) => value !== item);
+                        column.setFilterValue((filterValue?: string[]) => {
+                          return (filterValue ?? []).filter(
+                            (value) => value !== item,
+                          );
                         });
                       }
                     }}
                   />
-                  {JSON.stringify(item)}
+                  <label htmlFor={id}>{id}</label>
                 </div>
               );
             })}
